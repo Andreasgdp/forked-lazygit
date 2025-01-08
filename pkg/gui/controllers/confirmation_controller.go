@@ -26,7 +26,10 @@ func NewConfirmationController(
 func (self *ConfirmationController) GetKeybindings(opts types.KeybindingsOpts) []*types.Binding {
 	bindings := []*types.Binding{}
 
-	if self.context().State.Multiline {
+	// TODO: we seem to not be setting the multiline state correctly, so we are not getting the multiline confirm keybinding
+	// Investigate why this is the case
+	// TODO: remove the || true
+	if self.context().State.Multiline || true {
 		bindings = append(bindings,
 			&types.Binding{
 				// Hard coding because this is always the button that adds a newline.

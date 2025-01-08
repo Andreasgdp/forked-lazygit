@@ -70,7 +70,7 @@ func (self *ContextMgr) Push(c types.Context, opts ...types.OnFocusOpts) {
 		return
 	}
 
-	gui.resetHelpersAndControllers()
+	self.gui.resetHelpersAndControllers()
 
 	contextsToDeactivate, contextToActivate := self.pushToContextStack(c)
 

@@ -256,6 +256,11 @@ type TranslationSet struct {
 	NoBranchOnRemote                      string
 	Fetch                                 string
 	FetchTooltip                          string
+	CollapseAll                           string
+	CollapseAllTooltip                    string
+	ExpandAll                             string
+	ExpandAllTooltip                      string
+	DisabledInFlatView                    string
 	FileEnter                             string
 	FileEnterTooltip                      string
 	FileStagingRequirements               string
@@ -727,8 +732,9 @@ type TranslationSet struct {
 	ConfirmRevertCommit                      string
 	RewordInEditorTitle                      string
 	RewordInEditorPrompt                     string
-	CheckoutPrompt                           string
+	CheckoutAutostashPrompt                  string
 	HardResetAutostashPrompt                 string
+	SoftResetPrompt                          string
 	UpstreamGone                             string
 	NukeDescription                          string
 	DiscardStagedChangesDescription          string
@@ -1258,6 +1264,11 @@ func EnglishTranslationSet() *TranslationSet {
 		NoBranchOnRemote:                     `This branch doesn't exist on remote. You need to push it to remote first.`,
 		Fetch:                                `Fetch`,
 		FetchTooltip:                         "Fetch changes from remote.",
+		CollapseAll:                          "Collapse all files",
+		CollapseAllTooltip:                   "Collapse all directories in the files tree",
+		ExpandAll:                            "Expand all files",
+		ExpandAllTooltip:                     "Expand all directories in the file tree",
+		DisabledInFlatView:                   "Not available in flat view",
 		FileEnter:                            `Stage lines / Collapse directory`,
 		FileEnterTooltip:                     "If the selected item is a file, focus the staging view so you can stage individual hunks/lines. If the selected item is a directory, collapse/expand it.",
 		FileStagingRequirements:              `Can only stage individual lines for tracked files`,
@@ -1337,7 +1348,7 @@ func EnglishTranslationSet() *TranslationSet {
 		CherryPickCopyTooltip:                "Mark commit as copied. Then, within the local commits view, you can press `{{.paste}}` to paste (cherry-pick) the copied commit(s) into your checked out branch. At any time you can press `{{.escape}}` to cancel the selection.",
 		CherryPickCopyRangeTooltip:           "Mark commits as copied from the last copied commit to the selected commit.",
 		PasteCommits:                         "Paste (cherry-pick)",
-		SureCherryPick:                       "Are you sure you want to cherry-pick the copied commits onto this branch?",
+		SureCherryPick:                       "Are you sure you want to cherry-pick the {{.numCommits}} copied commit(s) onto this branch?",
 		CherryPick:                           "Cherry-pick",
 		CannotCherryPickNonCommit:            "Cannot cherry-pick this kind of todo item",
 		CannotCherryPickMergeCommit:          "Cherry-picking merge commits is not supported",
@@ -1735,7 +1746,8 @@ func EnglishTranslationSet() *TranslationSet {
 		RewordInEditorTitle:                      "Reword in editor",
 		RewordInEditorPrompt:                     "Are you sure you want to reword this commit in your editor?",
 		HardResetAutostashPrompt:                 "Are you sure you want to hard reset to '%s'? An auto-stash will be performed if necessary.",
-		CheckoutPrompt:                           "Are you sure you want to checkout '%s'?",
+		SoftResetPrompt:                          "Are you sure you want to soft reset to '%s'?",
+		CheckoutAutostashPrompt:                  "Are you sure you want to checkout '%s'? An auto-stash will be performed if necessary.",
 		UpstreamGone:                             "(upstream gone)",
 		NukeDescription:                          "If you want to make all the changes in the worktree go away, this is the way to do it. If there are dirty submodule changes this will stash those changes in the submodule(s).",
 		DiscardStagedChangesDescription:          "This will create a new stash entry containing only staged files and then drop it, so that the working tree is left with only unstaged changes",
@@ -2006,6 +2018,8 @@ keybinding:
 gui:
   filterMode: 'fuzzy'
 	  `,
+			"0.44.0": `- The gui.branchColors config option is deprecated; it will be removed in a future version. Please use gui.branchColorPatterns instead.
+- The automatic coloring of branches starting with "feature/", "bugfix/", or "hotfix/" has been removed; if you want this, it's easy to set up using the new gui.branchColorPatterns option.`,
 		},
 	}
 }

@@ -16,6 +16,13 @@
             "type": "string"
           },
           "type": "object",
+          "description": "See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-branch-color\nDeprecated: use branchColorPatterns instead"
+        },
+        "branchColorPatterns": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
           "description": "See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-branch-color"
         },
         "scrollHeight": {
@@ -388,14 +395,14 @@
           "description": "Whether to split the main window when viewing file changes.\nOne of: 'auto' | 'always'\nIf 'auto', only split the main window when a file has both staged and unstaged changes",
           "default": "auto"
         },
-        "windowSize": {
+        "screenMode": {
           "type": "string",
           "enum": [
             "normal",
             "half",
             "full"
           ],
-          "description": "Default size for focused window. Window size can be changed from within Lazygit with '+' and '_' (but this won't change the default).\nOne of: 'normal' (default) | 'half' | 'full'",
+          "description": "Default size for focused window. Can be changed from within Lazygit with '+' and '_' (but this won't change the default).\nOne of: 'normal' (default) | 'half' | 'full'",
           "default": "normal"
         },
         "border": {
@@ -1456,6 +1463,14 @@
             "copyFileInfoToClipboard": {
               "type": "string",
               "default": "y"
+            },
+            "collapseAll": {
+              "type": "string",
+              "default": "-"
+            },
+            "expandAll": {
+              "type": "string",
+              "default": "="
             }
           },
           "additionalProperties": false,

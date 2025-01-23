@@ -52,7 +52,10 @@ type GuiConfig struct {
 	// See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-author-color
 	AuthorColors map[string]string `yaml:"authorColors"`
 	// See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-branch-color
+	// Deprecated: use branchColorPatterns instead
 	BranchColors map[string]string `yaml:"branchColors"`
+	// See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-branch-color
+	BranchColorPatterns map[string]string `yaml:"branchColorPatterns"`
 	// The number of lines you scroll by when scrolling the main window
 	ScrollHeight int `yaml:"scrollHeight" jsonschema:"minimum=1"`
 	// If true, allow scrolling past the bottom of the content in the main window
@@ -148,9 +151,9 @@ type GuiConfig struct {
 	// One of: 'auto' | 'always'
 	// If 'auto', only split the main window when a file has both staged and unstaged changes
 	SplitDiff string `yaml:"splitDiff" jsonschema:"enum=auto,enum=always"`
-	// Default size for focused window. Window size can be changed from within Lazygit with '+' and '_' (but this won't change the default).
+	// Default size for focused window. Can be changed from within Lazygit with '+' and '_' (but this won't change the default).
 	// One of: 'normal' (default) | 'half' | 'full'
-	WindowSize string `yaml:"windowSize" jsonschema:"enum=normal,enum=half,enum=full"`
+	ScreenMode string `yaml:"screenMode" jsonschema:"enum=normal,enum=half,enum=full"`
 	// Window border style.
 	// One of 'rounded' (default) | 'single' | 'double' | 'hidden'
 	Border string `yaml:"border" jsonschema:"enum=single,enum=double,enum=rounded,enum=hidden"`
@@ -453,6 +456,8 @@ type KeybindingFilesConfig struct {
 	OpenMergeTool            string `yaml:"openMergeTool"`
 	OpenStatusFilter         string `yaml:"openStatusFilter"`
 	CopyFileInfoToClipboard  string `yaml:"copyFileInfoToClipboard"`
+	CollapseAll              string `yaml:"collapseAll"`
+	ExpandAll                string `yaml:"expandAll"`
 }
 
 type KeybindingBranchesConfig struct {
@@ -734,7 +739,7 @@ func GetDefaultConfig() *UserConfig {
 			CommandLogSize:               8,
 			SplitDiff:                    "auto",
 			SkipRewordInEditorWarning:    false,
-			WindowSize:                   "normal",
+			ScreenMode:                   "normal",
 			Border:                       "rounded",
 			AnimateExplosion:             true,
 			PortraitMode:                 "auto",
@@ -895,6 +900,8 @@ func GetDefaultConfig() *UserConfig {
 				OpenStatusFilter:         "<c-b>",
 				ConfirmDiscard:           "x",
 				CopyFileInfoToClipboard:  "y",
+				CollapseAll:              "-",
+				ExpandAll:                "=",
 			},
 			Branches: KeybindingBranchesConfig{
 				CopyPullRequestURL:     "<c-y>",
